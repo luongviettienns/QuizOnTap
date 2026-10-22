@@ -21,7 +21,7 @@
 
 - [ ] **Phase 3: Triển khai Cốt lõi & Giao diện (Core Development via Multi-Agent)** *(Đang thực hiện)*
   - [x] Wave 0: Khởi tạo khung dự án, đóng băng Contracts, Router Shell & Test Suite
-  - [ ] Wave 1: Foundation Modules (Design Tokens & Primitives, Dexie DB, State Machine Parser, Pure Quiz Engine)
+  - [x] Wave 1: Foundation Modules (Design Tokens & Primitives, Dexie DB, State Machine Parser, Pure Quiz Engine)
   - [ ] Wave 2: Feature UI & User Flows (Import Wizard, Library, Practice, Exam, Results, Gamification)
   - [ ] Wave 3: Advanced Modes & Polish (Flashcard 3D, Mistake Review, Insights, Calm Motion)
   - [ ] Module dữ liệu câu hỏi (Question Engine, Parser & Mock Data)
