@@ -27,10 +27,19 @@ function getAudioContext(): AudioContext | null {
   return audioCtx;
 }
 
-export type ToneType = 'correct' | 'wrong' | 'victory' | 'click';
+export type ToneType = 'correct' | 'wrong' | 'victory' | 'click' | 'flip' | 'alert' | 'complete';
+
+export function isAudioMuted(): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    return localStorage.getItem('quizontap_mute') === 'true';
+  } catch {
+    return false;
+  }
+}
 
 export function playTone(type: ToneType, soundEnabled: boolean = true): void {
-  if (!soundEnabled) return;
+  if (!soundEnabled || isAudioMuted()) return;
 
   const ctx = getAudioContext();
   if (!ctx) return;
@@ -100,6 +109,59 @@ export function playTone(type: ToneType, soundEnabled: boolean = true): void {
         osc.start(noteStart);
         osc.stop(noteStart + 0.3);
       });
+    } else if (type === 'complete') {
+      // Satisfying chord triad (C5 -> F5 -> A5)
+      const notes = [523.25, 698.46, 880.0];
+      notes.forEach((freq, idx) => {
+        const noteStart = now + idx * 0.08;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        gain.gain.setValueAtTime(0.14, noteStart);
+        gain.gain.exponentialRampToValueAtTime(0.001, noteStart + 0.32);
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, noteStart);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(noteStart);
+        osc.stop(noteStart + 0.32);
+      });
+    } else if (type === 'flip') {
+      // Tactile card whoosh
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      gain.gain.setValueAtTime(0.08, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(520, now);
+      osc.frequency.exponentialRampToValueAtTime(220, now + 0.14);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.14);
+    } else if (type === 'alert') {
+      // Gentle reminder ping
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      gain.gain.setValueAtTime(0.1, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(880, now); // A5
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.12);
     } else if (type === 'click') {
       // Crisp click
       const osc = ctx.createOscillator();

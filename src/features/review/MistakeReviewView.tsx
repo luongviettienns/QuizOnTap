@@ -4,6 +4,8 @@ import { Card } from '@/design/components/Card';
 import { Button } from '@/design/components/Button';
 import { Badge } from '@/design/components/Badge';
 import { ArrowLeft, CheckCircle2, Check, AlertCircle, BookOpen } from 'lucide-react';
+import { playTone } from '@/gamification/audioSynth';
+import { getOptionColor } from '@/design/optionColors';
 
 interface MistakeReviewViewProps {
   questions: Question[];
@@ -34,6 +36,7 @@ export function MistakeReviewView({
   });
 
   const handleMarkMastered = (questionId: string) => {
+    playTone('correct');
     setMasteredIds((prev) => {
       const next = new Set(prev);
       next.add(questionId);
@@ -43,8 +46,6 @@ export function MistakeReviewView({
       onMastered(questionId);
     }
   };
-
-  const optionLabels = ['A', 'B', 'C', 'D', 'E', 'F'];
 
   return (
     <div className="max-w-3xl mx-auto space-y-6 animate-in fade-in duration-200">
@@ -157,11 +158,11 @@ export function MistakeReviewView({
                   {question.options.map((option, optIdx) => {
                     const isCorrect = correctIds.includes(option.id);
                     const isUserChoice = userChosen.includes(option.id);
+                    const colorConfig = getOptionColor(optIdx);
 
                     let itemClass =
-                      'border-slate-100 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-950/20 text-slate-500';
-                    let badgeClass =
-                      'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400';
+                      'border-slate-100 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-950/20 text-slate-600 dark:text-slate-300';
+                    let badgeClass = colorConfig.badgeIdle;
 
                     if (isCorrect) {
                       itemClass =
@@ -181,7 +182,7 @@ export function MistakeReviewView({
                         <span
                           className={`w-6 h-6 rounded-md inline-flex items-center justify-center text-xs shrink-0 ${badgeClass}`}
                         >
-                          {optionLabels[optIdx] ?? optIdx + 1}
+                          {colorConfig.letter}
                         </span>
                         <div className="flex-1 pt-0.5 flex items-center justify-between gap-2">
                           <span>{option.text}</span>

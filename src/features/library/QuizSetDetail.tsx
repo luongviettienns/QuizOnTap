@@ -15,6 +15,7 @@ import { exportQuizSetToJson } from '@/import/jsonBackup';
 import { Button } from '@/design/components/Button';
 import { Badge } from '@/design/components/Badge';
 import { QuestionEditorModal } from '../questions/QuestionEditorModal';
+import { getOptionColor } from '@/design/optionColors';
 
 interface QuizSetDetailProps {
   setId: string;
@@ -229,19 +230,27 @@ export function QuizSetDetail({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
               {q.options.map((opt, optIdx) => {
-                const labels = ['A', 'B', 'C', 'D', 'E'];
+                const colorConfig = getOptionColor(optIdx);
                 const isCorrect = q.correctOptionIds?.includes(opt.id);
                 return (
                   <div
                     key={opt.id}
-                    className={`flex items-start gap-2 p-2.5 rounded-xl border ${
+                    className={`flex items-start gap-2.5 p-2.5 rounded-xl border ${
                       isCorrect
                         ? 'border-emerald-300 bg-emerald-50/50 dark:border-emerald-800 dark:bg-emerald-950/40 font-medium text-emerald-900 dark:text-emerald-200'
                         : 'border-slate-100 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-900/40 text-slate-600 dark:text-slate-400'
                     }`}
                   >
-                    <span className="font-bold shrink-0">{labels[optIdx] || optIdx + 1}.</span>
-                    <span>{opt.text}</span>
+                    <span
+                      className={`w-5 h-5 rounded-md inline-flex items-center justify-center text-[10px] font-bold shrink-0 ${
+                        isCorrect
+                          ? 'bg-emerald-500 text-white shadow-xs'
+                          : colorConfig.badgeIdle
+                      }`}
+                    >
+                      {colorConfig.letter}
+                    </span>
+                    <span className="pt-0.5 leading-snug">{opt.text}</span>
                   </div>
                 );
               })}

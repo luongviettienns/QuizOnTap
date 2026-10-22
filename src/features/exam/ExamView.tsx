@@ -7,6 +7,8 @@ import { Modal } from '@/design/components/Modal';
 import { ExamTimer } from './ExamTimer';
 import { QuestionMatrix } from './QuestionMatrix';
 import { Flag, ArrowLeft, ArrowRight, CheckCircle2, AlertTriangle, X } from 'lucide-react';
+import { playTone } from '@/gamification/audioSynth';
+import { getOptionColor } from '@/design/optionColors';
 
 interface ExamViewProps {
   questions: Question[];
@@ -46,6 +48,7 @@ export function ExamView({
   }, [questions, answers]);
 
   const handleToggleFlag = useCallback((index: number) => {
+    playTone('click');
     setFlaggedIndices((prev) => {
       const next = new Set(prev);
       if (next.has(index)) {
@@ -59,6 +62,7 @@ export function ExamView({
 
   const handleSelectOption = useCallback(
     (questionId: string, optionId: string) => {
+      playTone('click');
       setAnswers((prev) => ({
         ...prev,
         [questionId]: [optionId],
@@ -68,6 +72,7 @@ export function ExamView({
   );
 
   const handleConfirmSubmit = useCallback(() => {
+    playTone('complete');
     const durationSpent = Math.max(1, Math.round((Date.now() - startedAtEpoch) / 1000));
     onSubmit(answers, durationSpent);
   }, [answers, startedAtEpoch, onSubmit]);
@@ -136,7 +141,6 @@ export function ExamView({
   const answeredCount = answeredIndices.size;
   const unansweredCount = questions.length - answeredCount;
   const flaggedCount = flaggedIndices.size;
-  const optionLabels = ['A', 'B', 'C', 'D', 'E', 'F'];
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
@@ -215,6 +219,7 @@ export function ExamView({
             <div className="space-y-3">
               {currentQuestion.options.map((option, idx) => {
                 const isSelected = currentSelectedOptionId === option.id;
+                const colorConfig = getOptionColor(idx);
 
                 return (
                   <button
@@ -223,18 +228,18 @@ export function ExamView({
                     onClick={() => handleSelectOption(currentQuestion.id, option.id)}
                     className={`w-full text-left p-4 rounded-xl border-2 transition-all flex items-start gap-3.5 focus:outline-none focus:ring-2 focus:ring-primary-500 ${
                       isSelected
-                        ? 'border-primary-600 bg-primary-50/50 dark:bg-primary-950/30 text-primary-950 dark:text-primary-100'
-                        : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200'
+                        ? colorConfig.cardSelected
+                        : `border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 ${colorConfig.cardHover} text-slate-800 dark:text-slate-200`
                     }`}
                   >
                     <span
                       className={`inline-flex items-center justify-center w-7 h-7 rounded-lg text-xs font-bold shrink-0 transition-colors ${
                         isSelected
-                          ? 'bg-primary-600 text-white'
-                          : 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300'
+                          ? colorConfig.badgeSelected
+                          : colorConfig.badgeIdle
                       }`}
                     >
-                      {optionLabels[idx] ?? idx + 1}
+                      {colorConfig.letter}
                     </span>
                     <span className="text-sm sm:text-base leading-relaxed pt-0.5">{option.text}</span>
                   </button>
@@ -247,7 +252,10 @@ export function ExamView({
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setCurrentIndex((i) => Math.max(0, i - 1))}
+                onClick={() => {
+                  playTone('click');
+                  setCurrentIndex((i) => Math.max(0, i - 1));
+                }}
                 disabled={currentIndex === 0}
                 leftIcon={<ArrowLeft className="w-4 h-4" />}
               >
@@ -261,7 +269,10 @@ export function ExamView({
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setCurrentIndex((i) => Math.min(questions.length - 1, i + 1))}
+                onClick={() => {
+                  playTone('click');
+                  setCurrentIndex((i) => Math.min(questions.length - 1, i + 1));
+                }}
                 disabled={currentIndex === questions.length - 1}
                 rightIcon={<ArrowRight className="w-4 h-4" />}
               >

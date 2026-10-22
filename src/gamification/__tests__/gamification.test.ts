@@ -1,6 +1,7 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { calculateStreak } from '../streakTracker';
 import { calculateXp } from '../xpCalculator';
+import { isAudioMuted, playTone } from '../audioSynth';
 
 describe('Gamification Logic', () => {
   it('increments streak when active on consecutive days', () => {
@@ -32,3 +33,35 @@ describe('Gamification Logic', () => {
     expect(xpWithCombo).toBeGreaterThan(xpBase);
   });
 });
+
+describe('Web Audio Synthesizer', () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
+  it('detects mute state correctly from localStorage', () => {
+    expect(isAudioMuted()).toBe(false);
+    localStorage.setItem('quizontap_mute', 'true');
+    expect(isAudioMuted()).toBe(true);
+    localStorage.setItem('quizontap_mute', 'false');
+    expect(isAudioMuted()).toBe(false);
+  });
+
+  it('safely handles playTone calls without throwing in non-audio or muted environments', () => {
+    expect(() => {
+      playTone('correct');
+      playTone('wrong');
+      playTone('victory');
+      playTone('complete');
+      playTone('flip');
+      playTone('alert');
+      playTone('click');
+    }).not.toThrow();
+
+    localStorage.setItem('quizontap_mute', 'true');
+    expect(() => {
+      playTone('correct');
+    }).not.toThrow();
+  });
+});
+

@@ -4,6 +4,7 @@ import { Card } from '@/design/components/Card';
 import { Button } from '@/design/components/Button';
 import { FlashcardCard } from './FlashcardCard';
 import { ArrowLeft, ArrowRight, RotateCw, CheckCircle2, RotateCcw, X } from 'lucide-react';
+import { playTone } from '@/gamification/audioSynth';
 
 interface FlashcardViewProps {
   questions: Question[];
@@ -21,14 +22,17 @@ export function FlashcardView({ questions, onFinish, onExit }: FlashcardViewProp
   const currentQuestion = questions[currentIndex];
 
   const handleFlip = useCallback(() => {
+    playTone('flip');
     setIsFlipped((prev) => !prev);
   }, []);
 
   const handleRate = useCallback(
     (mastered: boolean) => {
       if (mastered) {
+        playTone('correct');
         setMasteredCount((c) => c + 1);
       } else {
+        playTone('wrong');
         setLearningCount((c) => c + 1);
       }
 
@@ -36,6 +40,7 @@ export function FlashcardView({ questions, onFinish, onExit }: FlashcardViewProp
         setCurrentIndex((i) => i + 1);
         setIsFlipped(false);
       } else {
+        playTone('complete');
         setIsCompleted(true);
       }
     },
@@ -43,6 +48,7 @@ export function FlashcardView({ questions, onFinish, onExit }: FlashcardViewProp
   );
 
   const handleRestart = () => {
+    playTone('click');
     setCurrentIndex(0);
     setIsFlipped(false);
     setMasteredCount(0);
@@ -205,6 +211,7 @@ export function FlashcardView({ questions, onFinish, onExit }: FlashcardViewProp
             size="sm"
             onClick={() => {
               if (currentIndex > 0) {
+                playTone('click');
                 setCurrentIndex((i) => i - 1);
                 setIsFlipped(false);
               }
@@ -231,6 +238,7 @@ export function FlashcardView({ questions, onFinish, onExit }: FlashcardViewProp
             size="sm"
             onClick={() => {
               if (currentIndex < questions.length - 1) {
+                playTone('click');
                 setCurrentIndex((i) => i + 1);
                 setIsFlipped(false);
               }

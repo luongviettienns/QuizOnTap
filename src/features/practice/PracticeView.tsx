@@ -5,6 +5,8 @@ import { Button } from '@/design/components/Button';
 import { Badge } from '@/design/components/Badge';
 import { AnswerFeedback } from './AnswerFeedback';
 import { X, Shuffle } from 'lucide-react';
+import { playTone } from '@/gamification/audioSynth';
+import { getOptionColor } from '@/design/optionColors';
 
 interface PracticeViewProps {
   questions: Question[];
@@ -47,19 +49,29 @@ export function PracticeView({ questions, onFinish, onExit }: PracticeViewProps)
 
   const handleSelectOption = useCallback(
     (optId: string) => {
-      if (isAnswered) return;
+      if (isAnswered || !currentQuestion) return;
       setSelectedOptionId(optId);
       setIsAnswered(true);
+
+      if (isMissingKey) {
+        playTone('click');
+      } else if (currentQuestion.correctOptionIds?.includes(optId)) {
+        playTone('correct');
+      } else {
+        playTone('wrong');
+      }
     },
-    [isAnswered]
+    [isAnswered, currentQuestion, isMissingKey]
   );
 
   const handleNext = useCallback(() => {
     if (currentIndex < questions.length - 1) {
+      playTone('click');
       setCurrentIndex((prev) => prev + 1);
       setSelectedOptionId(null);
       setIsAnswered(false);
     } else {
+      playTone('complete');
       onFinish();
     }
   }, [currentIndex, questions.length, onFinish]);
@@ -115,7 +127,6 @@ export function PracticeView({ questions, onFinish, onExit }: PracticeViewProps)
     );
   }
 
-  const optionLabels = ['A', 'B', 'C', 'D', 'E', 'F'];
   const progressPercent = Math.round(((currentIndex + 1) / questions.length) * 100);
 
   return (
@@ -190,31 +201,35 @@ export function PracticeView({ questions, onFinish, onExit }: PracticeViewProps)
           {options.map((option, idx) => {
             const isSelected = selectedOptionId === option.id;
             const isOptionCorrect = currentQuestion.correctOptionIds?.includes(option.id);
+            const colorConfig = getOptionColor(idx);
 
-            let optionStyle =
-              'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 hover:bg-slate-50 dark:hover:bg-slate-800/80 text-slate-800 dark:text-slate-200';
-            let badgeStyle =
-              'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300';
+            let optionStyle = `border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 ${colorConfig.cardHover} text-slate-800 dark:text-slate-200`;
+            let badgeStyle = colorConfig.badgeIdle;
 
             if (isAnswered) {
               if (isMissingKey) {
                 if (isSelected) {
                   optionStyle =
-                    'border-amber-400 dark:border-amber-600 bg-amber-50/50 dark:bg-amber-950/30 text-amber-900 dark:text-amber-200';
-                  badgeStyle = 'bg-amber-200 text-amber-800 dark:bg-amber-900 dark:text-amber-200';
+                    'border-amber-500 bg-amber-50/70 dark:bg-amber-950/40 text-amber-950 dark:text-amber-100 ring-2 ring-amber-400/50 shadow-xs';
+                  badgeStyle = 'bg-amber-500 text-white font-bold';
+                } else {
+                  optionStyle =
+                    'opacity-40 border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/20 text-slate-400';
+                  badgeStyle = 'bg-slate-100 text-slate-400 dark:bg-slate-800 dark:text-slate-500';
                 }
               } else {
                 if (isOptionCorrect) {
                   optionStyle =
-                    'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-900 dark:text-emerald-100 shadow-sm ring-1 ring-emerald-400';
-                  badgeStyle = 'bg-emerald-500 text-white font-bold';
+                    'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-950 dark:text-emerald-100 shadow-sm ring-2 ring-emerald-500/50';
+                  badgeStyle = 'bg-emerald-600 text-white font-bold';
                 } else if (isSelected && !isOptionCorrect) {
                   optionStyle =
-                    'border-rose-400 bg-rose-50 dark:bg-rose-950/40 text-rose-900 dark:text-rose-200';
-                  badgeStyle = 'bg-rose-500 text-white font-bold';
+                    'border-rose-500 bg-rose-50 dark:bg-rose-950/40 text-rose-950 dark:text-rose-100 ring-2 ring-rose-400/50';
+                  badgeStyle = 'bg-rose-600 text-white font-bold';
                 } else {
                   optionStyle =
-                    'opacity-50 border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/20 text-slate-400';
+                    'opacity-40 border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/20 text-slate-400';
+                  badgeStyle = 'bg-slate-100 text-slate-400 dark:bg-slate-800 dark:text-slate-500';
                 }
               }
             }
@@ -230,7 +245,7 @@ export function PracticeView({ questions, onFinish, onExit }: PracticeViewProps)
                 <span
                   className={`inline-flex items-center justify-center w-7 h-7 rounded-lg text-xs font-bold shrink-0 transition-colors ${badgeStyle}`}
                 >
-                  {optionLabels[idx] ?? idx + 1}
+                  {colorConfig.letter}
                 </span>
                 <span className="text-sm sm:text-base leading-relaxed pt-0.5">{option.text}</span>
               </button>

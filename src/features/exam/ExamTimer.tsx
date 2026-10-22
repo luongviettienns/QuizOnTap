@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Clock } from 'lucide-react';
+import { playTone } from '@/gamification/audioSynth';
 
 interface ExamTimerProps {
   deadlineEpochMs: number;
@@ -15,6 +16,17 @@ export function ExamTimer({ deadlineEpochMs, onTimeUp }: ExamTimerProps) {
     const updateTimer = () => {
       const remaining = Math.max(0, Math.floor((deadlineEpochMs - Date.now()) / 1000));
       setRemainingSeconds(remaining);
+
+      // Audio warning ping at 60s, 30s, 15s and final 5s countdown
+      if (
+        remaining === 60 ||
+        remaining === 30 ||
+        remaining === 15 ||
+        (remaining <= 5 && remaining > 0)
+      ) {
+        playTone('alert');
+      }
+
       if (remaining <= 0) {
         onTimeUp();
       }

@@ -61,3 +61,11 @@
   - [x] Nâng cấp độ tương phản WCAG 2.2 AA: Thay thế `text-slate-400` ở các nhãn nhỏ, hướng dẫn phím tắt, ghi chú flashcard bằng `text-slate-600 dark:text-slate-400`.
   - [x] Bổ sung đầy đủ CSS Variables màu sắc cốt lõi vào [tokens.css](file:///c:/Users/ASUS/Desktop/QuizOnTap/src/design/tokens.css) và làm dịu gradient Hero Banner Dashboard từ Indigo sang Slate-900.
 
+- [x] **Hệ Thống Âm Thanh Toàn Diện & 4 Đáp Án 4 Màu Đặc Trưng (Sound Synthesizer & 4 Signature Colors)** *(Đã hoàn thành)*
+  - [x] Thiết kế hệ màu 4 phương án chuẩn thương hiệu trong [optionColors.ts](file:///c:/Users/ASUS/Desktop/QuizOnTap/src/design/optionColors.ts): A (Rose), B (Sky), C (Amber), D (Emerald) kèm trạng thái idle, hover và selected, fallback Indigo cho câu hỏi > 4 đáp án.
+  - [x] Áp dụng 4 màu trực quan vào màn hình Luyện tập ([PracticeView.tsx](file:///c:/Users/ASUS/Desktop/QuizOnTap/src/features/practice/PracticeView.tsx)), Thi thử ([ExamView.tsx](file:///c:/Users/ASUS/Desktop/QuizOnTap/src/features/exam/ExamView.tsx)), Ôn câu sai ([MistakeReviewView.tsx](file:///c:/Users/ASUS/Desktop/QuizOnTap/src/features/review/MistakeReviewView.tsx)) và Chi tiết đề thi ([QuizSetDetail.tsx](file:///c:/Users/ASUS/Desktop/QuizOnTap/src/features/library/QuizSetDetail.tsx)).
+  - [x] Nâng cấp Web Audio API Synthesizer offline trong [audioSynth.ts](file:///c:/Users/ASUS/Desktop/QuizOnTap/src/gamification/audioSynth.ts) với đầy đủ 7 hiệu ứng âm thanh tự nhiên: `correct` (hợp âm vui tươi E5-A5), `wrong` (boop trầm nhẹ Eb3-D3), `victory` (fanfare chiến thắng C5-E5-G5-C6), `complete` (triad thỏa mãn C5-F5-A5), `flip` (whoosh lật thẻ 3D), `alert` (ping cảnh báo 880Hz khi còn ít thời gian thi), `click` (click tương tác crisp 800Hz).
+  - [x] Tích hợp phát âm thanh tương tác tại: Practice (chọn đúng/sai/chuyển câu/kết thúc), Exam (chọn đáp án/gắn cờ/chuyển câu/nộp bài/đếm ngược 60s), Flashcard (lật thẻ/thuộc/chưa thuộc/hoàn thành bộ thẻ).
+  - [x] Tự động đồng bộ với nút Mute âm thanh trên Sidebar và lưu trữ trong `localStorage`.
+  - [x] Đạt 100% Quality Gates: 41/41 Vitest Unit Tests pass, 4/4 Playwright E2E Tests pass, Production Build thành công.
+
