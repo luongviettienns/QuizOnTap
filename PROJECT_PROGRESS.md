@@ -51,8 +51,9 @@
 - [x] **Deploy Production lên GitHub Pages & Thiết lập CI/CD** *(Đã hoàn thành)*
   - [x] Tạo GitHub Repository [luongviettienns/QuizOnTap](https://github.com/luongviettienns/QuizOnTap)
   - [x] Cấu hình Vite với `base: './'` hỗ trợ routing linh hoạt trên GitHub Pages và máy chủ tĩnh
-  - [x] Thiết lập GitHub Actions workflow tự động build và deploy khi push code lên nhánh `main`
-  - [x] Kích hoạt và triển khai thành công lên GitHub Pages tại: **https://luongviettienns.github.io/QuizOnTap/**
+  - [x] Khắc phục xung đột CI/CD: Chuyển đổi workflow `.github/workflows/deploy.yml` sang action `peaceiris/actions-gh-pages@v4` đồng bộ trực tiếp với nhánh `gh-pages` (tương thích 100% với cài đặt `build_type: legacy` của repo).
+  - [x] Bổ sung script `npm run deploy` với package `gh-pages` cho phép deploy thủ công 1-click mọi lúc.
+  - [x] Kiểm tra xác thực Live website: GitHub Actions run hoàn thành `success` lúc 09:57 UTC, mã phản hồi `HTTP/1.1 200 OK` tại **https://luongviettienns.github.io/QuizOnTap/**.
 
 - [x] **Tối ưu Hệ Màu Frontend & Sửa lỗi Tailwind v4 (Design Tokens & Color Review)** *(Đã hoàn thành)*
   - [x] Khắc phục lỗi P0: Khai báo `@theme inline` ánh xạ toàn bộ dải màu `primary-*` sang Indigo trong [index.css](file:///c:/Users/ASUS/Desktop/QuizOnTap/src/index.css), sửa triệt để lỗi màu ma trận câu hỏi, thanh tiến độ và các nút chọn.
