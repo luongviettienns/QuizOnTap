@@ -31,8 +31,8 @@ export function scoreExam(
       chapterStats[chapterKey] = { correct: 0, scored: 0 };
     }
 
-    // Nếu câu hỏi chưa có key verified
-    if (q.answerStatus !== 'verified' || !q.correctOptionIds || q.correctOptionIds.length === 0) {
+    // Nếu câu hỏi chưa có key xác nhận hoặc gợi ý hợp lệ
+    if ((q.answerStatus !== 'verified' && q.answerStatus !== 'suggested') || !q.correctOptionIds || q.correctOptionIds.length === 0) {
       unscored++;
       continue;
     }

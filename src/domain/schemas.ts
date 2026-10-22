@@ -32,12 +32,12 @@ export const QuestionSchema = z.object({
   createdAt: z.number(),
   updatedAt: z.number(),
 }).superRefine((data, ctx) => {
-  // Ràng buộc 1: Nếu verified -> correctOptionIds không được null hoặc rỗng
-  if (data.answerStatus === 'verified') {
+  // Ràng buộc 1: Nếu verified hoặc suggested -> correctOptionIds không được null hoặc rỗng
+  if (data.answerStatus === 'verified' || data.answerStatus === 'suggested') {
     if (!data.correctOptionIds || data.correctOptionIds.length === 0) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: 'Verified questions must have non-empty correctOptionIds',
+        message: 'Questions with verified or suggested answers must have non-empty correctOptionIds',
         path: ['correctOptionIds'],
       });
     } else {
@@ -66,8 +66,8 @@ export const QuestionSchema = z.object({
     }
   }
 
-  // Ràng buộc 3: single question chỉ có tối đa 1 correctOptionId nếu verified
-  if (data.kind === 'single' && data.answerStatus === 'verified' && data.correctOptionIds) {
+  // Ràng buộc 3: single question chỉ có tối đa 1 correctOptionId nếu verified hoặc suggested
+  if (data.kind === 'single' && (data.answerStatus === 'verified' || data.answerStatus === 'suggested') && data.correctOptionIds) {
     if (data.correctOptionIds.length > 1) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,

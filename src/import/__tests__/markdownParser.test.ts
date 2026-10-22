@@ -45,4 +45,25 @@ Giải thích: Giải thích chi tiết
     expect(result.drafts[0].detectedKeys).toEqual(['A']);
     expect(result.drafts[0].explanation).toBe('Giải thích chi tiết');
   });
+
+  it('correctly parses the supplemented document (Tai_lieu_on_tap_Kinh_te_hoc_va_Moi_truong_DA_Bo_sung.md)', () => {
+    const filePath = path.resolve(__dirname, '../../../Tai_lieu_on_tap_Kinh_te_hoc_va_Moi_truong_DA_Bo_sung.md');
+    const content = fs.readFileSync(filePath, 'utf-8');
+    const result = parseDocument(content);
+
+    expect(result.drafts.length).toBe(179);
+
+    const withAnswers = result.drafts.filter((d) => d.detectedKeys.length > 0);
+    const withoutAnswers = result.drafts.filter((d) => d.detectedKeys.length === 0);
+
+    // 178 câu có đáp án, 1 câu duy nhất (Chương 2, Câu 17) thiếu hình vẽ
+    expect(withAnswers.length).toBe(178);
+    expect(withoutAnswers.length).toBe(1);
+
+    const q17 = withoutAnswers[0];
+    expect(q17.chapter).toContain('Chương 2');
+    expect(q17.options.length).toBe(4);
+    expect(q17.explanation).toContain('thiếu hình vẽ');
+  });
 });
+

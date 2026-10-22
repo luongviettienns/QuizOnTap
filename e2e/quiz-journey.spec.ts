@@ -43,4 +43,24 @@ test.describe('QuizOnTap V2 Core User Journey', () => {
     await page.getByRole('button', { name: /Trở về Thư viện/i }).click();
     await expect(page.getByText('Đề thi thử Triết học Mác - Lênin')).toBeVisible();
   });
+
+  test('seeds and launches default 179-question quiz set from hero', async ({ page }) => {
+    await page.goto('/');
+
+    // Click Hero CTA button
+    const heroBtn = page.getByRole('button', { name: /Ôn tập ngay: Kinh tế học & Môi trường/i });
+    await expect(heroBtn).toBeVisible();
+    await heroBtn.click();
+
+    // Verify Set Detail page is shown
+    await expect(page.getByRole('heading', { name: /Tài liệu ôn tập Kinh tế học và Môi trường/i })).toBeVisible();
+    await expect(page.getByText('179').first()).toBeVisible();
+
+    // Start Practice mode
+    await page.getByRole('button', { name: /Luyện tập \(Drill\)/i }).click();
+
+    // Verify practice session launched and progress indicator shows 179 questions
+    await expect(page.getByText(/1 \/ 179/i)).toBeVisible();
+  });
 });
+

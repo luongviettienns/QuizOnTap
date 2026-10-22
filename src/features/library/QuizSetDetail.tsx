@@ -84,6 +84,8 @@ export function QuizSetDetail({
   }
 
   const verifiedCount = questions.filter(q => q.answerStatus === 'verified').length;
+  const suggestedCount = questions.filter(q => q.answerStatus === 'suggested').length;
+  const answerableCount = verifiedCount + suggestedCount;
   const missingCount = questions.filter(q => q.answerStatus === 'missing').length;
 
   return (
@@ -142,7 +144,7 @@ export function QuizSetDetail({
 
         <button
           onClick={() => onStartExam(setId)}
-          disabled={verifiedCount === 0}
+          disabled={answerableCount === 0}
           className="flex items-center gap-3.5 p-4 rounded-xl border border-emerald-200 bg-emerald-50/50 dark:border-emerald-900/60 dark:bg-emerald-950/30 text-left hover:border-emerald-400 transition group disabled:opacity-50"
         >
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-md shadow-emerald-500/20 group-hover:scale-105 transition">
@@ -150,7 +152,7 @@ export function QuizSetDetail({
           </div>
           <div>
             <div className="text-sm font-bold text-emerald-950 dark:text-emerald-200">Thi thử (Exam)</div>
-            <div className="text-xs text-emerald-700/80 dark:text-emerald-400">Bấm giờ & ma trận ({verifiedCount} câu)</div>
+            <div className="text-xs text-emerald-700/80 dark:text-emerald-400">Bấm giờ & ma trận ({answerableCount} câu)</div>
           </div>
         </button>
 
@@ -170,10 +172,10 @@ export function QuizSetDetail({
       </div>
 
       {/* KPI Stats */}
-      <div className="flex items-center gap-3 text-xs text-slate-500">
+      <div className="flex items-center gap-3 text-xs text-slate-500 flex-wrap">
         <span>Tổng số: <strong className="text-slate-800 dark:text-slate-200">{questions.length}</strong> câu</span>
         <span>•</span>
-        <span className="text-emerald-600">Có đáp án: <strong>{verifiedCount}</strong></span>
+        <span className="text-emerald-600">Có đáp án: <strong>{answerableCount}</strong> {suggestedCount > 0 && `(${verifiedCount} gốc + ${suggestedCount} AI gợi ý)`}</span>
         <span>•</span>
         <span className="text-amber-600">Cần bổ sung: <strong>{missingCount}</strong></span>
       </div>
@@ -194,7 +196,9 @@ export function QuizSetDetail({
                   </span>
                 )}
                 {q.answerStatus === 'verified' ? (
-                  <Badge variant="verified">Đã có đáp án</Badge>
+                  <Badge variant="verified">Đáp án gốc</Badge>
+                ) : q.answerStatus === 'suggested' ? (
+                  <Badge variant="suggested">AI gợi ý</Badge>
                 ) : (
                   <Badge variant="missing">Chưa có đáp án</Badge>
                 )}

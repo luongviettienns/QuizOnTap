@@ -30,7 +30,24 @@
   - [x] Module quản lý & Nhập câu hỏi (Import Wizard 5 bước, CSV/JSON Export, Question Editor)
 
 - [x] **Phase 4: Kiểm thử, Tối ưu & Bàn giao (Testing, QA & Polish)** *(Đã hoàn thành)*
-  - [x] Kiểm thử toàn diện luồng người dùng (33/33 Vitest Unit tests & 3/3 Playwright E2E tests đạt 100%)
+  - [x] Kiểm thử toàn diện luồng người dùng (35/35 Vitest Unit tests & 4/4 Playwright E2E tests đạt 100%)
   - [x] Tối ưu UI/UX, micro-animations, theme Dark/Light, Web Audio synthesizer offline
   - [x] Bàn giao & hướng dẫn nạp dữ liệu câu hỏi ([README.md](file:///c:/Users/ASUS/Desktop/QuizOnTap/README.md))
+
+- [x] **Nâng cấp Dữ liệu Thực tế: Tích hợp Ngân hàng 179 câu "Kinh tế học và Môi trường"** *(Đã hoàn thành)*
+  - [x] Nâng cấp Parser regex nhận diện chuẩn 100% định dạng đáp án tài liệu thực tế (`**- Đáp án: A**`, `**→ Đáp án đúng: C**`)
+  - [x] Lưu trữ tệp dữ liệu gốc tại `src/data/defaultQuiz.md` và xây dựng module auto-seed `src/data/seedDefaultData.ts`
+  - [x] Tự động kích hoạt nạp vào IndexedDB khi người dùng mới mở web, đồng thời hỗ trợ nút nạp 1-click tại Hero Banner, Thư viện và Import Wizard
+  - [x] Giữ nguyên trung thực dữ liệu: 104 câu có đáp án (Verified), 75 câu tự luyện (Missing), phân chia chuẩn theo 6 chương
+  - [x] Đạt 100% Quality Gates: TypeScript Strict, 35/35 Vitest tests, 4/4 Playwright E2E tests và Vite Production Build.
+
+- [x] **Tích hợp Bản Đáp Án Bổ Sung: `Tai_lieu_on_tap_Kinh_te_hoc_va_Moi_truong_DA_Bo_sung.md`** *(Đã hoàn thành)*
+  - [x] Nhận diện và bóc tách tự động: 178/179 câu có đáp án (104 câu gốc `verified` + 74 câu AI bổ sung `suggested` kèm lời giải thích chi tiết; 1 câu Chương 2 Câu 17 đánh dấu `missing` do thiếu hình vẽ).
+  - [x] Nâng cấp Parser regex nhận diện lời giải thích đa dạng (`> *Giải thích (AI bổ sung): ...*`, `> **Cần kiểm tra lại câu hỏi:**...`, `**Chưa thể khoanh đáp án...**`).
+  - [x] Nâng cấp `seedDefaultData.ts` tự động kiểm tra và nâng cấp dữ liệu hiện hữu trong IndexedDB lên bản 178 câu có đáp án.
+  - [x] Hiển thị Badge trực quan: `[Đáp án gốc]` (xanh lục), `[AI gợi ý]` (indigo/tím) và `[Chưa có đáp án]` (vàng hổ phách).
+  - [x] Hỗ trợ thi thử và luyện tập toàn diện cả 178 câu có đáp án (câu thiếu hình vẽ giữ `unscored` theo đúng logic đề thi).
+  - [x] Đạt 100% Quality Gates: TypeScript Strict, 36/36 Vitest Unit tests, 4/4 Playwright E2E tests, Vite Production Build thành công.
+
+
 

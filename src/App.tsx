@@ -20,6 +20,7 @@ import { Card } from './design/components/Card';
 import { Button } from './design/components/Button';
 import { Badge } from './design/components/Badge';
 import { BookOpen, Flame, Award, Sparkles, Layers, ArrowRight, Upload } from 'lucide-react';
+import { seedDefaultQuizSet } from './data/seedDefaultData';
 
 type ActiveMode = 'none' | 'practice' | 'exam' | 'results' | 'review' | 'flashcard';
 
@@ -37,7 +38,11 @@ export function App() {
   });
 
   const loadSets = useCallback(async () => {
-    const list = await quizSetRepo.listAll();
+    let list = await quizSetRepo.listAll();
+    if (list.length === 0) {
+      await seedDefaultQuizSet();
+      list = await quizSetRepo.listAll();
+    }
     setQuizSets(list);
   }, []);
 
@@ -56,6 +61,13 @@ export function App() {
       // LocalStorage fallback
     }
   }, [loadSets]);
+
+  const handleSeedDefault = async () => {
+    const id = await seedDefaultQuizSet();
+    await loadSets();
+    setSelectedSetId(id);
+    setCurrentPath('/library');
+  };
 
   const handleStartMode = async (
     setId: string,
@@ -221,6 +233,7 @@ export function App() {
               onSelectSet={(id) => setSelectedSetId(id)}
               onOpenImport={() => setCurrentPath('/import')}
               onRefresh={loadSets}
+              onSeedDefault={handleSeedDefault}
             />
           )
         )}
@@ -245,9 +258,17 @@ export function App() {
                 <div className="mt-6 flex flex-wrap items-center gap-3">
                   <Button
                     variant="secondary"
+                    onClick={handleSeedDefault}
+                    leftIcon={<Sparkles className="w-4 h-4 text-amber-500" />}
+                    className="!bg-white !text-indigo-700 hover:!bg-indigo-50 shadow-md font-bold"
+                  >
+                    Ôn tập ngay: Kinh tế học & Môi trường (179 câu)
+                  </Button>
+                  <Button
+                    variant="ghost"
                     onClick={() => setCurrentPath('/import')}
                     leftIcon={<Upload className="w-4 h-4" />}
-                    className="!bg-white !text-primary-700 hover:!bg-primary-50 shadow-md font-bold"
+                    className="!text-white hover:!bg-white/10"
                   >
                     Nhập bộ đề mới
                   </Button>
@@ -257,7 +278,7 @@ export function App() {
                     rightIcon={<ArrowRight className="w-4 h-4" />}
                     className="!text-white hover:!bg-white/10"
                   >
-                    Khám phá thư viện ({quizSets.length} đề)
+                    Thư viện ({quizSets.length} đề)
                   </Button>
                 </div>
               </div>

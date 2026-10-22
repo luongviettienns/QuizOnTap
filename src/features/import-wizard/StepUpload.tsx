@@ -1,6 +1,7 @@
 import { useState, ChangeEvent, DragEvent } from 'react';
-import { UploadCloud, FileText, Clipboard, AlertCircle } from 'lucide-react';
+import { UploadCloud, FileText, Clipboard, AlertCircle, Sparkles } from 'lucide-react';
 import { Button } from '../../design/components/Button';
+import defaultQuizContent from '@/data/defaultQuiz.md?raw';
 
 interface StepUploadProps {
   onAnalyze: (content: string, format: 'markdown' | 'csv') => void;
@@ -95,6 +96,31 @@ export function StepUpload({ onAnalyze, onCancel, isLoading = false }: StepUploa
           <Clipboard className="w-4 h-4" />
           Dán văn bản
         </button>
+      </div>
+
+      {/* Quick Sample Box */}
+      <div className="max-w-xl mx-auto p-4 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+        <div className="flex items-center gap-2.5">
+          <div className="p-2 rounded-xl bg-indigo-100 dark:bg-indigo-900/60 text-indigo-600 dark:text-indigo-400 shrink-0">
+            <Sparkles className="w-4 h-4" />
+          </div>
+          <div>
+            <div className="text-xs font-bold text-indigo-950 dark:text-indigo-200">
+              Tài liệu ôn tập Kinh tế học và Môi trường (ĐÁ Bổ sung)
+            </div>
+            <div className="text-xs text-indigo-700/80 dark:text-indigo-300">
+              179 câu hỏi qua 6 chương (104 gốc + 74 AI gợi ý + 1 thiếu hình)
+            </div>
+          </div>
+        </div>
+        <Button
+          size="sm"
+          variant="primary"
+          onClick={() => onAnalyze(defaultQuizContent, 'markdown')}
+          className="shrink-0"
+        >
+          Nạp tài liệu này
+        </Button>
       </div>
 
       {errorMsg && (

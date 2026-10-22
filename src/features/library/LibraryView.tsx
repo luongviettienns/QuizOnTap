@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BookOpen, Plus, FileUp, Trash2, ArrowRight } from 'lucide-react';
+import { BookOpen, Plus, FileUp, Trash2, ArrowRight, Sparkles } from 'lucide-react';
 import type { QuizSet } from '@/domain/contracts';
 import { quizSetRepo } from '@/db/repositories';
 import { Button } from '@/design/components/Button';
@@ -10,6 +10,7 @@ interface LibraryViewProps {
   onSelectSet: (setId: string) => void;
   onOpenImport: () => void;
   onRefresh: () => void;
+  onSeedDefault?: () => Promise<void>;
 }
 
 export function LibraryView({
@@ -17,6 +18,7 @@ export function LibraryView({
   onSelectSet,
   onOpenImport,
   onRefresh,
+  onSeedDefault,
 }: LibraryViewProps) {
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [newTitle, setNewTitle] = useState('');
@@ -62,6 +64,16 @@ export function LibraryView({
         </div>
 
         <div className="flex items-center gap-2.5">
+          {onSeedDefault && (
+            <Button
+              variant="secondary"
+              leftIcon={<Sparkles className="w-4 h-4 text-indigo-500" />}
+              onClick={onSeedDefault}
+              className="hidden sm:inline-flex"
+            >
+              Nạp đề 179 câu mẫu
+            </Button>
+          )}
           <Button variant="outline" leftIcon={<FileUp className="w-4 h-4" />} onClick={onOpenImport}>
             Nhập đề
           </Button>
@@ -81,10 +93,19 @@ export function LibraryView({
             Chưa có bộ đề nào trong thư viện
           </h3>
           <p className="mt-1.5 max-w-sm text-sm text-slate-500 dark:text-slate-400">
-            Hãy bắt đầu bằng cách nhập câu hỏi từ tài liệu Word/PDF đã có hoặc tạo một bộ đề mới.
+            Hãy bắt đầu bằng cách nhập câu hỏi từ tài liệu Word/PDF đã có hoặc nạp bộ đề mẫu có sẵn.
           </p>
-          <div className="mt-6 flex gap-3">
-            <Button variant="primary" leftIcon={<FileUp className="w-4 h-4" />} onClick={onOpenImport}>
+          <div className="mt-6 flex flex-wrap gap-3 justify-center">
+            {onSeedDefault && (
+              <Button
+                variant="primary"
+                leftIcon={<Sparkles className="w-4 h-4 text-amber-300" />}
+                onClick={onSeedDefault}
+              >
+                Nạp đề Kinh tế & Môi trường (179 câu)
+              </Button>
+            )}
+            <Button variant="outline" leftIcon={<FileUp className="w-4 h-4" />} onClick={onOpenImport}>
               Nhập bộ đề ngay
             </Button>
             <Button variant="secondary" onClick={() => setIsCreateOpen(true)}>

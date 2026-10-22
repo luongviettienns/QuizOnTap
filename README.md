@@ -5,8 +5,8 @@
 [![TypeScript Strict](https://img.shields.io/badge/TypeScript-Strict_Mode-blue.svg)](https://www.typescriptlang.org/)
 [![Vite + React](https://img.shields.io/badge/Vite-React_18-646CFF.svg)](https://vitejs.dev/)
 [![Tailwind CSS v4](https://img.shields.io/badge/TailwindCSS-v4.0-38B2AC.svg)](https://tailwindcss.com/)
-[![Tests](https://img.shields.io/badge/Vitest-33_Passed-success.svg)](https://vitest.dev/)
-[![E2E](https://img.shields.io/badge/Playwright-3_Passed-success.svg)](https://playwright.dev/)
+[![Tests](https://img.shields.io/badge/Vitest-36_Passed-success.svg)](https://vitest.dev/)
+[![E2E](https://img.shields.io/badge/Playwright-4_Passed-success.svg)](https://playwright.dev/)
 [![Offline Local-First](https://img.shields.io/badge/Storage-IndexedDB_Dexie-green.svg)](https://dexie.org/)
 
 ---
