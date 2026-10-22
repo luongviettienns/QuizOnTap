@@ -19,17 +19,18 @@
   - [x] Soạn bản Implementation Plan ([2026-10-22-quizontap-v2-implementation.md](file:///c:/Users/ASUS/Desktop/QuizOnTap/docs/superpowers/plans/2026-10-22-quizontap-v2-implementation.md))
   - [x] Người dùng nghiệm thu kế hoạch thực thi (Plan Review Gate)
 
-- [ ] **Phase 3: Triển khai Cốt lõi & Giao diện (Core Development via Multi-Agent)** *(Đang thực hiện)*
+- [x] **Phase 3: Triển khai Cốt lõi & Giao diện (Core Development via Multi-Agent)** *(Đã hoàn thành)*
   - [x] Wave 0: Khởi tạo khung dự án, đóng băng Contracts, Router Shell & Test Suite
   - [x] Wave 1: Foundation Modules (Design Tokens & Primitives, Dexie DB, State Machine Parser, Pure Quiz Engine)
-  - [ ] Wave 2: Feature UI & User Flows (Import Wizard, Library, Practice, Exam, Results, Gamification)
-  - [ ] Wave 3: Advanced Modes & Polish (Flashcard 3D, Mistake Review, Insights, Calm Motion)
-  - [ ] Module dữ liệu câu hỏi (Question Engine, Parser & Mock Data)
-  - [ ] Module làm bài (Quiz Engine: Luyện tập, Bấm giờ, Phản hồi đáp án, Giải thích)
-  - [ ] Module thống kê & Lịch sử ôn tập (Review, Analytics, Local Storage)
-  - [ ] Module quản lý & Nhập câu hỏi (Import / Export JSON/Excel format)
+  - [x] Wave 2: Feature UI & User Flows (Import Wizard [x], Library [x], Practice Drill [x], Exam Mode [x], Results & Mistake Review [x], Gamification [x])
+  - [x] Wave 3: Advanced Modes & Polish (Flashcard 3D [x], Mistake Review [x], Insights, Calm Motion)
+  - [x] Module dữ liệu câu hỏi (Question Engine, Parser, Dexie CRUD & Mock Data 179 câu)
+  - [x] Module làm bài (Quiz Engine: Luyện tập [x], Bấm giờ [x], Phản hồi đáp án [x], Giải thích [x])
+  - [x] Module thống kê & Lịch sử ôn tập (Review, Analytics, Local Storage)
+  - [x] Module quản lý & Nhập câu hỏi (Import Wizard 5 bước, CSV/JSON Export, Question Editor)
 
-- [ ] **Phase 4: Kiểm thử, Tối ưu & Bàn giao (Testing, QA & Polish)**
-  - [ ] Kiểm thử toàn diện luồng người dùng (Verification & Playwright/Unit tests)
-  - [ ] Tối ưu UI/UX, micro-animations, theme Dark/Light
-  - [ ] Bàn giao & hướng dẫn nạp dữ liệu câu hỏi
+- [x] **Phase 4: Kiểm thử, Tối ưu & Bàn giao (Testing, QA & Polish)** *(Đã hoàn thành)*
+  - [x] Kiểm thử toàn diện luồng người dùng (33/33 Vitest Unit tests & 3/3 Playwright E2E tests đạt 100%)
+  - [x] Tối ưu UI/UX, micro-animations, theme Dark/Light, Web Audio synthesizer offline
+  - [x] Bàn giao & hướng dẫn nạp dữ liệu câu hỏi ([README.md](file:///c:/Users/ASUS/Desktop/QuizOnTap/README.md))
+

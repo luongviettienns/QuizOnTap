@@ -1,1 +1,0 @@
-{"root":["./src/app.tsx","./src/main.tsx","./src/app/appshell.tsx","./src/app/errorboundary.tsx","./src/app/routes.ts","./src/app/__tests__/appshell.test.tsx","./src/domain/contracts.ts","./src/domain/schemas.ts","./src/domain/__tests__/contracts.test.ts","./src/test/setup.ts","./src/test/smoke.test.ts","./vite.config.ts","./vitest.config.ts"],"version":"5.7.3"}
