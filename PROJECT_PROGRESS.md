@@ -48,6 +48,8 @@
   - [x] Hiển thị Badge trực quan: `[Đáp án gốc]` (xanh lục), `[AI gợi ý]` (indigo/tím) và `[Chưa có đáp án]` (vàng hổ phách).
   - [x] Hỗ trợ thi thử và luyện tập toàn diện cả 178 câu có đáp án (câu thiếu hình vẽ giữ `unscored` theo đúng logic đề thi).
   - [x] Đạt 100% Quality Gates: TypeScript Strict, 36/36 Vitest Unit tests, 4/4 Playwright E2E tests, Vite Production Build thành công.
-
-
-
+- [x] **Deploy Production lên GitHub Pages & Thiết lập CI/CD** *(Đã hoàn thành)*
+  - [x] Tạo GitHub Repository [luongviettienns/QuizOnTap](https://github.com/luongviettienns/QuizOnTap)
+  - [x] Cấu hình Vite với `base: './'` hỗ trợ routing linh hoạt trên GitHub Pages và máy chủ tĩnh
+  - [x] Thiết lập GitHub Actions workflow tự động build và deploy khi push code lên nhánh `main`
+  - [x] Kích hoạt và triển khai thành công lên GitHub Pages tại: **https://luongviettienns.github.io/QuizOnTap/**
