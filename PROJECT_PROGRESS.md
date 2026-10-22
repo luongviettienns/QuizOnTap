@@ -19,8 +19,11 @@
   - [x] Soạn bản Implementation Plan ([2026-10-22-quizontap-v2-implementation.md](file:///c:/Users/ASUS/Desktop/QuizOnTap/docs/superpowers/plans/2026-10-22-quizontap-v2-implementation.md))
   - [x] Người dùng nghiệm thu kế hoạch thực thi (Plan Review Gate)
 
-- [ ] **Phase 3: Triển khai Cốt lõi & Giao diện (Core Development via Multi-Agent)** *(Sẵn sàng bắt đầu)*
-  - [ ] Khởi tạo khung dự án & Design System cao cấp
+- [ ] **Phase 3: Triển khai Cốt lõi & Giao diện (Core Development via Multi-Agent)** *(Đang thực hiện)*
+  - [x] Wave 0: Khởi tạo khung dự án, đóng băng Contracts, Router Shell & Test Suite
+  - [ ] Wave 1: Foundation Modules (Design Tokens & Primitives, Dexie DB, State Machine Parser, Pure Quiz Engine)
+  - [ ] Wave 2: Feature UI & User Flows (Import Wizard, Library, Practice, Exam, Results, Gamification)
+  - [ ] Wave 3: Advanced Modes & Polish (Flashcard 3D, Mistake Review, Insights, Calm Motion)
   - [ ] Module dữ liệu câu hỏi (Question Engine, Parser & Mock Data)
   - [ ] Module làm bài (Quiz Engine: Luyện tập, Bấm giờ, Phản hồi đáp án, Giải thích)
   - [ ] Module thống kê & Lịch sử ôn tập (Review, Analytics, Local Storage)

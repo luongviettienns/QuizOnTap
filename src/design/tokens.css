@@ -1,0 +1,22 @@
+/* Design Tokens — Focused Learning Studio */
+:root {
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --content-max: 1200px;
+  --study-max: 780px;
+  --sidebar-width: 256px;
+  --motion-fast: 120ms;
+  --motion-normal: 200ms;
+  --motion-slow: 280ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
