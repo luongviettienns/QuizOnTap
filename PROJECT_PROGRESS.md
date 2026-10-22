@@ -69,4 +69,35 @@
   - [x] Tích hợp phát âm thanh tương tác tại: Practice (chọn đúng/sai/chuyển câu/kết thúc), Exam (chọn đáp án/gắn cờ/chuyển câu/nộp bài/đếm ngược 60s), Flashcard (lật thẻ/thuộc/chưa thuộc/hoàn thành bộ thẻ).
   - [x] Tự động đồng bộ với nút Mute âm thanh trên Sidebar và lưu trữ trong `localStorage`.
   - [x] Đạt 100% Quality Gates: 41/41 Vitest Unit Tests pass, 4/4 Playwright E2E Tests pass, Production Build thành công.
-
+- [x] **Phase 5: Nâng Cấp Kiến Trúc Focused Studio V3 — Chuyên Sâu 178 Câu "Kinh Tế Học & Môi Trường"** *(Đã hoàn thành)*
+  - [x] **Workstream A — Chuẩn hóa Bộ đề Canonical 178 câu (P0)**:
+    - Loại bỏ triệt để câu lỗi Chương 2 Câu 17 (`q_set_kinh_te_va_moi_truong_27` - thiếu hình vẽ và key) khỏi runtime bundle chính thức.
+    - Giữ nguyên vẹn mã ID gốc của 178 câu còn lại (`q_set_kinh_te_va_moi_truong_1` đến `26` và `28` đến `179`).
+    - Xây dựng module `src/data/canonicalQuizData.ts` cung cấp dữ liệu bất biến: đúng 178 câu = 104 verified + 74 AI suggested + 0 missing.
+    - Nâng cấp `ensureCanonicalDefaultSet()` với migration Dexie atomic transaction: an toàn xóa câu 27, cập nhật 178 câu canonical, ghi `canonical_content_version = 3` mà không làm mất dữ liệu tùy chỉnh của người dùng.
+  - [x] **Workstream B — Tinh gọn Navigation & Khóa Preview Bảo Mật (P0)**:
+    - Rút gọn điều hướng toàn ứng dụng chỉ còn 3 mục: **Ôn tập** (`/`), **Thống kê** (`/insights`), **Phiên bản** (`/releases`).
+    - Tự động chuyển hướng (safe redirect) các đường dẫn cũ (`/library`, `/import`, `/review`) về trang chủ Ôn tập.
+    - Trang chủ hiển thị Hero Subject Card duy nhất của môn học kèm 2 nút CTA: `Bắt đầu ôn tập` và `Tiếp tục lượt đang học`.
+    - Tính năng che nội dung (Locked Preview): Danh sách câu hỏi và đáp án mặc định hoàn toàn vắng mặt khỏi React DOM cây thực tế (chống inspect/F12 nhìn trước). Chỉ tải và hiển thị khi người dùng chủ động bấm `Xem nội dung bộ đề`, hỗ trợ ẩn lại bất cứ lúc nào.
+  - [x] **Workstream C — Tự động Đảo Câu Hỏi & Đảo 4 Phương Án (P0)**:
+    - Mỗi phiên ôn tập mới tự động sinh `seed` ngẫu nhiên độc lập; xáo thứ tự 178 câu và vị trí 4 đáp án A, B, C, D qua thuật toán Fisher-Yates.
+    - Snapshot câu hỏi và vị trí đáp án được lưu cố định trong session progress; không bị thay đổi khi refresh trang hay tiếp tục phiên học.
+    - Chấm điểm và liên kết đáp án dựa trên `option.id` gốc, không phụ thuộc vào thứ tự chữ cái A/B/C/D.
+  - [x] **Workstream D — Mastery Learning Engine: Gom 5 câu sai → Ôn lại → Đúng hết mới hoàn thành (P0)**:
+    - Phát triển State Machine thuần túy trong `src/domain/studyEngine.ts`: `createStudySession`, `applyStudyAnswer`, `advanceStudyNext`, `calculateStudyResult`.
+    - Khi tích lũy đủ 5 câu hỏi sai riêng biệt (unique IDs) ở luồng câu mới $\to$ tạm dừng và chuyển sang chế độ `REMEDIATION` đúng 5 câu đó.
+    - Vòng lặp ôn lại đa tầng: Chỉ những câu làm đúng mới được đánh dấu `mastered` và rời khỏi lô; các câu sai tiếp tục được ôn lại vòng tiếp theo cho đến khi đúng toàn bộ lô 5 câu.
+    - Xử lý lô dư cuối kỳ (tail batch 1–4 câu) nếu còn câu sai chưa khắc phục.
+    - Quy tắc hoàn thành tuyệt đối: Chỉ chuyển sang trạng thái `COMPLETED` khi đã nắm vững **178/178 câu** (`masteredCount === 178` và không còn câu nợ).
+  - [x] **Workstream E — Phân tích Kết quả & Lịch sử Học tập Chuyên sâu (P1)**:
+    - Bảng kết quả `StudyResultView.tsx` hiển thị tỷ lệ đúng lần đầu (`firstPassAccuracy`), tổng số lần thử, số lượt sai, số lô ôn và số vòng học lại.
+    - Thống kê chi tiết theo 6 chương giáo trình và bảng xếp hạng các câu khó nhất (câu sai nhiều lần nhất kèm phân tích phương án chọn nhầm).
+    - Màn hình `InsightsView.tsx` theo dõi toàn bộ lịch sử các phiên học (hoàn thành và đang dở), hỗ trợ tiếp tục hoặc xem lại chi tiết từng phiên.
+  - [x] **Workstream F — Tab Nhật ký Phiên bản & Cập nhật (`/releases`) (P1)**:
+    - Cung cấp trang tra cứu lịch sử phát hành từ `src/data/releases.ts` với đầy đủ các mốc `v3.0.0`, `v2.2.0`, `v2.1.0`, `v2.0.0`.
+    - Định dạng mốc thời gian phát hành chuẩn ISO-8601 kèm múi giờ Việt Nam (GMT+7) và phân loại thay đổi (Tính năng, Cải thiện, Sửa lỗi, Breaking Changes).
+  - [x] **Workstream G — Kiểm thử, Hardening & Triển khai Production**:
+    - Nâng cấp schema Dexie lên Version 3 bổ sung bảng `studyProgress`, `answerAttempts`, `appMetadata`.
+    - Đạt 100% Quality Gates: **59/59 Vitest Unit Tests** pass (20 test files), **5/5 Playwright E2E Tests** pass, TypeScript strict clean.
+    - Production bundle compile sạch sẽ qua Vite (`npm run build`).

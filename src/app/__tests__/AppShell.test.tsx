@@ -11,8 +11,8 @@ describe('AppShell Component', () => {
     );
     expect(screen.getAllByText(/QuizOnTap/i).length).toBeGreaterThanOrEqual(1);
     expect(screen.getByTestId('page-content')).toBeDefined();
-    expect(screen.getAllByRole('button', { name: /Tổng quan/i }).length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByRole('button', { name: /Thư viện/i }).length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByRole('button', { name: /Nhập đề/i }).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByRole('button', { name: /Ôn tập/i }).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByRole('button', { name: /Thống kê/i }).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByRole('button', { name: /Phiên bản/i }).length).toBeGreaterThanOrEqual(1);
   });
 });

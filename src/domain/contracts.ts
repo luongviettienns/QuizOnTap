@@ -44,9 +44,83 @@ export interface QuizSet {
   id: string;                           // UUID
   title: string;                        // Tên bộ đề
   description?: string;                 // Mô tả
-  schemaVersion: 2;                     // Định danh version hợp đồng
+  schemaVersion: number;                // Định danh version hợp đồng (v2 hoặc v3)
   createdAt: number;                    // Epoch ms
   updatedAt: number;                    // Epoch ms
+}
+
+export type StudyPhase = 'MAIN' | 'REMEDIATION' | 'COMPLETED' | 'ABANDONED';
+
+export interface StudyProgress {
+  sessionId: string;
+  setId: string;
+  contentVersion: number;
+  status: 'in-progress' | 'completed' | 'abandoned';
+  phase: StudyPhase;
+  questionOrder: string[];               // Đúng 178 ID câu hỏi đã đảo cố định
+  optionOrderByQuestion: Record<string, string[]>; // Thứ tự phương án cố định từng câu
+  mainCursor: number;                   // Vị trí câu hỏi mới đang làm
+  masteredIds: string[];                // Danh sách câu đã làm đúng (mục tiêu 178/178)
+  pendingWrongIds: string[];            // Tối đa 5 câu sai trước khi chuyển sang Remediation
+  remediationIds: string[];             // Danh sách câu trong lô ôn hiện tại (tối đa 5)
+  remediationCursor: number;            // Vị trí câu đang làm trong lô ôn
+  remediationRound: number;             // Vòng ôn tập trong lô hiện tại (1, 2, ...)
+  remediationUnresolvedIds: string[];   // Các câu sai ở vòng hiện tại cần làm lại ở vòng kế
+  attemptCount: number;                 // Tổng số lượt trả lời (kể cả ôn lại)
+  wrongAttemptCount: number;            // Tổng số lượt trả lời sai
+  reviewBatchCount: number;             // Số lô ôn tập đã kích hoạt
+  startedAt: number;                    // Thời điểm bắt đầu
+  completedAt: number | null;           // Thời điểm hoàn thành
+  accumulatedActiveMs: number;          // Tổng thời gian thao tác
+}
+
+export interface AnswerAttempt {
+  id: string;                           // UUID duy nhất (chống double-submit)
+  sessionId: string;
+  questionId: string;
+  selectedOptionIds: string[];
+  correct: boolean;
+  phase: 'MAIN' | 'REMEDIATION';
+  batchNo: number | null;
+  createdAt: number;
+}
+
+export interface ChapterStudyStat {
+  chapterId: string;
+  totalQuestions: number;
+  firstPassCorrect: number;
+  firstPassWrong: number;
+  totalAttempts: number;
+  mastered: number;
+}
+
+export interface HardestQuestionStat {
+  questionId: string;
+  questionText: string;
+  wrongCount: number;
+  firstWrongOptionText?: string;
+  explanation?: string;
+  isSuggested: boolean;
+  chapterId?: string;
+}
+
+export interface StudySessionResult {
+  sessionId: string;
+  totalEligible: number;                // 178
+  masteredCount: number;                // 178 khi hoàn thành
+  firstPassCorrectCount: number;
+  firstPassWrongCount: number;
+  firstPassAccuracyPercent: number;
+  totalAttempts: number;
+  correctAttempts: number;
+  wrongAttempts: number;
+  uniqueEverWrongCount: number;
+  remediationBatchCount: number;
+  startedAt: number;
+  completedAt: number;
+  durationMs: number;
+  chapterStats: ChapterStudyStat[];
+  hardestQuestions: HardestQuestionStat[];
 }
 
 export interface QuizSession {

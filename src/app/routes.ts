@@ -1,10 +1,7 @@
 export type AppRoute = 
   | '/'
-  | '/library'
-  | '/import'
-  | '/review'
   | '/insights'
-  | '/settings';
+  | '/releases';
 
 export interface RouteItem {
   id: string;
@@ -14,9 +11,7 @@ export interface RouteItem {
 }
 
 export const MAIN_NAV_ITEMS: RouteItem[] = [
-  { id: 'dashboard', path: '/', label: 'Tổng quan', iconName: 'LayoutDashboard' },
-  { id: 'library', path: '/library', label: 'Thư viện', iconName: 'BookOpen' },
-  { id: 'import', path: '/import', label: 'Nhập đề', iconName: 'FileUp' },
-  { id: 'review', path: '/review', label: 'Ôn câu sai', iconName: 'RotateCcw' },
+  { id: 'study', path: '/', label: 'Ôn tập', iconName: 'BookOpen' },
   { id: 'insights', path: '/insights', label: 'Thống kê', iconName: 'BarChart2' },
+  { id: 'releases', path: '/releases', label: 'Phiên bản', iconName: 'Sparkles' },
 ];
