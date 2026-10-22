@@ -53,3 +53,11 @@
   - [x] Cấu hình Vite với `base: './'` hỗ trợ routing linh hoạt trên GitHub Pages và máy chủ tĩnh
   - [x] Thiết lập GitHub Actions workflow tự động build và deploy khi push code lên nhánh `main`
   - [x] Kích hoạt và triển khai thành công lên GitHub Pages tại: **https://luongviettienns.github.io/QuizOnTap/**
+
+- [x] **Tối ưu Hệ Màu Frontend & Sửa lỗi Tailwind v4 (Design Tokens & Color Review)** *(Đã hoàn thành)*
+  - [x] Khắc phục lỗi P0: Khai báo `@theme inline` ánh xạ toàn bộ dải màu `primary-*` sang Indigo trong [index.css](file:///c:/Users/ASUS/Desktop/QuizOnTap/src/index.css), sửa triệt để lỗi màu ma trận câu hỏi, thanh tiến độ và các nút chọn.
+  - [x] Khắc phục lỗi P0: Thêm `@custom-variant dark (&:where(.dark, .dark *));` giúp tính năng chuyển đổi Light/Dark mode trên giao diện hoạt động 100% chuẩn xác theo class `.dark`.
+  - [x] Chuẩn hóa Semantic Badge: Chuyển badge "Chưa có key" từ màu đỏ (warning) sang màu vàng hổ phách (missing), đồng bộ với trạng thái Amber trong toàn bộ ứng dụng.
+  - [x] Nâng cấp độ tương phản WCAG 2.2 AA: Thay thế `text-slate-400` ở các nhãn nhỏ, hướng dẫn phím tắt, ghi chú flashcard bằng `text-slate-600 dark:text-slate-400`.
+  - [x] Bổ sung đầy đủ CSS Variables màu sắc cốt lõi vào [tokens.css](file:///c:/Users/ASUS/Desktop/QuizOnTap/src/design/tokens.css) và làm dịu gradient Hero Banner Dashboard từ Indigo sang Slate-900.
+
