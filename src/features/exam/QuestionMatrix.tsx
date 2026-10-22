@@ -17,7 +17,7 @@ export function QuestionMatrix({
 }: QuestionMatrixProps) {
   return (
     <div className="p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
-      <div className="flex items-center justify-between mb-3 text-xs font-semibold text-slate-500 dark:text-slate-400">
+      <div className="flex items-center justify-between mb-3 text-xs font-semibold text-slate-700 dark:text-slate-300">
         <span>Ma trận câu hỏi ({totalQuestions})</span>
         <div className="flex items-center gap-3">
           <span className="flex items-center gap-1">

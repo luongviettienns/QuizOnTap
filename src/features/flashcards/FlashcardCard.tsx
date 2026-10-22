@@ -44,7 +44,7 @@ export function FlashcardCard({ question, isFlipped, onFlip }: FlashcardCardProp
                 ))}
               </div>
 
-              <div className="flex items-center gap-1.5 text-xs text-slate-400 group-hover:text-primary-600 transition-colors">
+              <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 group-hover:text-primary-600 transition-colors">
                 <RotateCw className="w-3.5 h-3.5 animate-pulse" />
                 <span>Bấm để lật</span>
               </div>
@@ -55,7 +55,7 @@ export function FlashcardCard({ question, isFlipped, onFlip }: FlashcardCardProp
             </h2>
           </div>
 
-          <div className="pt-6 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+          <div className="pt-6 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
             <span>💡 Nhấn Space hoặc chạm vào thẻ để xem đáp án</span>
             <span className="font-semibold text-primary-600">Lật thẻ ➔</span>
           </div>
@@ -71,7 +71,7 @@ export function FlashcardCard({ question, isFlipped, onFlip }: FlashcardCardProp
                 </span>
               </div>
 
-              <div className="flex items-center gap-1 text-xs text-slate-400">
+              <div className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
                 <RotateCw className="w-3.5 h-3.5" />
                 <span>Bấm để lật lại</span>
               </div>
@@ -116,7 +116,7 @@ export function FlashcardCard({ question, isFlipped, onFlip }: FlashcardCardProp
             )}
           </div>
 
-          <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs text-slate-400">
+          <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-medium">
             <span>Đánh giá mức độ ghi nhớ của bạn ở bên dưới 👇</span>
           </div>
         </div>

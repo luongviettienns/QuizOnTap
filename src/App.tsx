@@ -242,7 +242,7 @@ export function App() {
         {currentPath === '/' && (
           <div className="space-y-8 animate-in fade-in duration-200">
             {/* Hero Welcome */}
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary-600 via-indigo-600 to-primary-700 p-8 text-white shadow-xl shadow-primary-500/10">
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-slate-900 p-8 text-white shadow-lg border border-indigo-500/20">
               <div className="relative z-10 max-w-2xl">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-semibold mb-4">
                   <Sparkles className="w-3.5 h-3.5" />

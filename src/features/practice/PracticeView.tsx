@@ -131,9 +131,11 @@ export function PracticeView({ questions, onFinish, onExit }: PracticeViewProps)
               {tag}
             </Badge>
           ))}
-          {isMissingKey && (
-            <Badge variant="warning">Chưa có key</Badge>
-          )}
+          {isMissingKey ? (
+            <Badge variant="missing">Chưa có key</Badge>
+          ) : currentQuestion.answerStatus === 'suggested' ? (
+            <Badge variant="suggested">AI gợi ý</Badge>
+          ) : null}
         </div>
 
         <div className="flex items-center gap-2">
@@ -249,14 +251,14 @@ export function PracticeView({ questions, onFinish, onExit }: PracticeViewProps)
       </Card>
 
       {/* Footer shortcut tips */}
-      <div className="flex items-center justify-between text-xs text-slate-400 dark:text-slate-500 px-2">
+      <div className="flex items-center justify-between text-xs text-slate-600 dark:text-slate-400 px-2 font-medium">
         <span>
-          💡 Phím tắt: <kbd className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-[10px]">1-4</kbd> hoặc{' '}
-          <kbd className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-[10px]">A-D</kbd> để chọn
+          💡 Phím tắt: <kbd className="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-mono text-[10px]">1-4</kbd> hoặc{' '}
+          <kbd className="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-mono text-[10px]">A-D</kbd> để chọn
         </span>
         {isAnswered && (
           <span>
-            Bấm <kbd className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-[10px]">Space</kbd> để tiếp tục
+            Bấm <kbd className="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-mono text-[10px]">Space</kbd> để tiếp tục
           </span>
         )}
       </div>

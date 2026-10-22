@@ -63,14 +63,14 @@ export function ExamResultView({
         <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-1">
           {evaluation.title}
         </h2>
-        <p className="text-xs text-slate-500 dark:text-slate-400 max-w-md mx-auto mb-6">
+        <p className="text-xs text-slate-600 dark:text-slate-300 max-w-md mx-auto mb-6">
           {evaluation.desc}
         </p>
 
         {/* Big numbers */}
         <div className="flex items-center justify-center gap-6 py-4 border-y border-slate-100 dark:border-slate-800 my-4">
           <div>
-            <div className="text-xs uppercase tracking-wider font-semibold text-slate-400">
+            <div className="text-xs uppercase tracking-wider font-bold text-slate-500 dark:text-slate-400">
               Điểm số
             </div>
             <div className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white font-mono mt-0.5">
@@ -81,7 +81,7 @@ export function ExamResultView({
           <div className="h-10 w-px bg-slate-200 dark:bg-slate-700" />
 
           <div>
-            <div className="text-xs uppercase tracking-wider font-semibold text-slate-400">
+            <div className="text-xs uppercase tracking-wider font-bold text-slate-500 dark:text-slate-400">
               Tỷ lệ đúng
             </div>
             <div className={`text-3xl sm:text-4xl font-extrabold font-mono mt-0.5 ${evaluation.textColor}`}>
@@ -130,9 +130,9 @@ export function ExamResultView({
         </div>
 
         {result.attemptedScoredCount > 0 && (
-          <p className="mt-4 text-xs text-slate-400">
+          <p className="mt-4 text-xs text-slate-600 dark:text-slate-400 font-medium">
             Độ chính xác trong số câu đã làm:{' '}
-            <strong className="text-slate-700 dark:text-slate-300">{accuracy}%</strong>
+            <strong className="text-slate-900 dark:text-slate-100 font-bold">{accuracy}%</strong>
           </p>
         )}
       </Card>

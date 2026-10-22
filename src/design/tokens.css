@@ -10,6 +10,26 @@
   --motion-fast: 120ms;
   --motion-normal: 200ms;
   --motion-slow: 280ms;
+
+  /* Semantic Core Tokens (Light) */
+  --bg-app: #f8fafc;
+  --surface: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --border-subtle: #e2e8f0;
+  --brand-primary: #4f46e5;
+  --brand-primary-hover: #4338ca;
+}
+
+.dark {
+  /* Semantic Core Tokens (Dark) */
+  --bg-app: #020617;
+  --surface: #0f172a;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border-subtle: #334155;
+  --brand-primary: #6366f1;
+  --brand-primary-hover: #4f46e5;
 }
 
 @media (prefers-reduced-motion: reduce) {
